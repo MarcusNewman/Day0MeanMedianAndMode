@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day0MeanMedianAndMode.UnitTests", "UnitTests\Day0MeanMedianAndMode.UnitTests.csproj", "{33329897-C892-460B-B87D-6A1D9F6FA29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day0MeanMedianAndMode", "Day0MeanMedianAndMode.csproj", "{3659B008-3F93-4B46-B817-4F836B107CDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33329897-C892-460B-B87D-6A1D9F6FA29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33329897-C892-460B-B87D-6A1D9F6FA29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33329897-C892-460B-B87D-6A1D9F6FA29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33329897-C892-460B-B87D-6A1D9F6FA29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3659B008-3F93-4B46-B817-4F836B107CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3659B008-3F93-4B46-B817-4F836B107CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3659B008-3F93-4B46-B817-4F836B107CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3659B008-3F93-4B46-B817-4F836B107CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
