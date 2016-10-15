@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReflectionUnitTesting;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace Day0MeanMedianAndMode.UnitTests
 {
@@ -23,12 +22,12 @@ namespace Day0MeanMedianAndMode.UnitTests
         }
 
         [TestMethod]
-        public void SolutionClassShouldExist()
+        public void ClassShouldExist()
         {
-            GetSolutionClass();
+            GetClass();
         }
 
-        Type GetSolutionClass()
+        Type GetClass()
         {
             var assembly = GetAssembly();
             return assembly.TypeExists("Day0MeanMedianAndMode", "Solution");
@@ -37,20 +36,7 @@ namespace Day0MeanMedianAndMode.UnitTests
         [TestMethod]
         public void MainMethodShouldExist()
         {
-            var main = new MethodShouldExist
-            {
-                Name = "Main",
-                shouldBeStatic = true
-            };
-            TestMethod(main);
-        }
-
-        public MethodInfo TestMethod(MethodShouldExist method)
-        {
-            var result = GetSolutionClass().MethodExists(method.Name);
-            Assert.AreEqual(method.shouldBeStatic, result.IsStatic, String.Format("{0} method should {1}be static.", method.Name, method.shouldBeStatic ? "" : "not "));
-           // CollectionAssert.AreEqual(method.shouldAcceptParameterTypes, result.GetParameters(), string.Format("{0} method parameters should be {1}.", method.Name, method.shouldAcceptParameterTypes);
-            return result;
+            GetClass().MethodExists("Main");
         }
 
         [TestMethod]
@@ -59,39 +45,87 @@ namespace Day0MeanMedianAndMode.UnitTests
             GetMeanMethod();
         }
 
-        public MethodInfo GetMeanMethod()
+        private MethodInfo GetMeanMethod()
         {
-            var mean = new MethodShouldExist
-            {
-                Name = "Mean",
-                shouldBeStatic = true,
-                shouldAcceptParameters = new ParameterInfo[]
-                {
-                    new _ParameterInfo()
-                    {
-                        type = typeof(int[]),
-                        name = "values" }
-                },
-                shouldReturnType = typeof(decimal)
-            };
-            return TestMethod(mean);
+            return GetClass().MethodExists("Mean");
         }
 
         [TestMethod]
         public void Mean64630_11735_14216_99233_14470_4978_73429_38120_51135_67060ShouldBe43900_6()
         {
-            var method = GetMeanMethod();
             var expected = 43900.6m;
-            var actual = method.Invoke(null, new object[] { new int[] { 64630, 11735, 14216, 99233, 14470, 4978, 73429, 38120, 51135, 67060 } });
-            Assert.AreEqual(expected, actual, "Mean of 64630 11735 14216 99233 14470 4978 73429 38120 51135 67060 should be 43900.6");
+            var values = new int[] { 64630, 11735, 14216, 99233, 14470, 4978, 73429, 38120, 51135, 67060 };
+            GetMeanMethod().TestMethod(null, new object[] { values }, expected);
         }
 
-        public class MethodShouldExist
+        [TestMethod]
+        public void MedianMethodShouldExist()
         {
-            public string Name { get; set; }
-            public bool shouldBeStatic { get; set; }
-            public Type shouldReturnType { get; set; }
-            public ParameterInfo[] shouldAcceptParameters { get; set; }
+            GetMedianMethod();
+
+        }
+
+        private MethodInfo GetMedianMethod()
+        {
+            return GetClass().MethodExists(
+                methodName: "Median",
+                shouldBeStatic: true,
+                shouldReturnType: typeof(decimal),
+                parameterTypesAndNames: new System.Collections.Generic.List<Tuple<Type, string>>
+                {
+                    Tuple.Create(typeof(int[]), "values")
+                });
+        }
+
+        [TestMethod]
+        public void Median312ShouldBe2()
+        {
+            var expected = 2m;
+            var values = new int[] { 3, 1, 2 };
+            GetMedianMethod().TestMethod(null, new object[] { values }, expected);
+        }
+
+        [TestMethod]
+        public void Median3124ShouldBe2()
+        {
+            var expected = 2.5m;
+            var values = new int[] { 3, 1, 2, 4 };
+            GetMedianMethod().TestMethod(null, new object[] { values }, expected);
+        }
+
+        [TestMethod]
+        public void ModeMethodShouldExist()
+        {
+            GetModeMethod();
+
+        }
+
+        private MethodInfo GetModeMethod()
+        {
+            return GetClass().MethodExists(
+                methodName: "Mode",
+                shouldBeStatic: true,
+                shouldReturnType: typeof(int),
+                parameterTypesAndNames: new System.Collections.Generic.List<Tuple<Type, string>>
+                {
+                    Tuple.Create(typeof(int[]), "values")
+                });
+        }
+
+        [TestMethod]
+        public void Mode234ShouldBe2()
+        {
+            var expected = 2;
+            var values = new int[] { 2, 3, 4 };
+            GetModeMethod().TestMethod(null, new object[] { values }, expected);
+        }
+
+        [TestMethod]
+        public void Mode2344ShouldBe4()
+        {
+            var expected = 4;
+            var values = new int[] { 2, 3, 4, 4 };
+            GetModeMethod().TestMethod(null, new object[] { values }, expected);
         }
     }
 }
